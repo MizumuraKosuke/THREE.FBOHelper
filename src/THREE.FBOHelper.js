@@ -17,9 +17,8 @@ var layerCSS = `
 	all: unset;
 	position: fixed;
 	left: 0;
-	top: 0;
+	bottom: 0;
 	z-index: 1000000;
-	width: 150px;
 }
 #fboh-fbos-list, #fboh-fbos-list *, #fboh-hotspot, #fboh-label, #fboh-info{
 	box-sizing: border-box;
@@ -31,10 +30,10 @@ var layerCSS = `
 	cursor: pointer;
 	color: white;
 	width: 100%;
-	padding: 4px 0;
+	padding: 4px 10px;
 	border-top: 1px solid #888;
 	border-bottom: 1px solid black;
-	background-color: #444;
+	background-color: #000;
 	text-align: center;
 	text-shadow: 0 -1px black;
 }
@@ -279,7 +278,7 @@ class FBOHelper {
 			fbo.height = fbo.image.height;
 		}
 
-		const width = 600;
+		const width = window.innerWidth > 834 ? window.innerWidth / 4 : window.innerWidth * 0.8;
 		const height = fbo.height * width / fbo.width;
 
 		const material = new THREE.MeshBasicMaterial( { map: fbo, side: THREE.DoubleSide } );
@@ -417,7 +416,7 @@ class FBOHelper {
 
 		var type = types[ fbo.texture ? fbo.texture.type : fbo.type ];
 		if( type === null ) {
-			console.warning( fbo.texture ? fbo.texture.type : fbo.type + ' not supported' );
+			console.log( fbo.texture ? fbo.texture.type : fbo.type + ' not supported' );
 			return;
 		}
 
@@ -471,4 +470,3 @@ else {
 }
 
 }).call(this);
-
