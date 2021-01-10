@@ -12,12 +12,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 	var has_require = typeof require !== 'undefined';
 
-	var THREE = root.THREE || has_require && require('three');
+	var THREE = root && root.THREE || has_require && require('three');
 	if (!THREE) throw new Error('FBOHelper requires three.js');
 
 	"use strict";
 
-	var layerCSS = '\n#fboh-fbos-list{\n\tall: unset;\n\tposition: fixed;\n\tleft: 0;\n\ttop: 0;\n\tz-index: 1000000;\n\twidth: 150px;\n}\n#fboh-fbos-list, #fboh-fbos-list *, #fboh-hotspot, #fboh-label, #fboh-info{\n\tbox-sizing: border-box;\n\tfont-family: \'Roboto Mono\', \'courier new\', courier, monospace;\n\tfont-size: 11px;\n\tline-height: 1.4em;\n}\n#fboh-fbos-list li{\n\tcursor: pointer;\n\tcolor: white;\n\twidth: 100%;\n\tpadding: 4px 0;\n\tborder-top: 1px solid #888;\n\tborder-bottom: 1px solid black;\n\tbackground-color: #444;\n\ttext-align: center;\n\ttext-shadow: 0 -1px black;\n}\n#fboh-fbos-list li:hover{\n\tbackground-color: rgba( 158, 253, 56, .5 );\n}\n#fboh-fbos-list li.active{\n\tbackground-color: rgba( 158, 253, 56, .5 );\n\tcolor: white;\n\ttext-shadow: 0 1px black;\n}\n#fboh-hotspot{\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tbackground-color: rgba( 158, 253, 56,.5);\n\tpointer-events: none;\n}\n#fboh-label{\n\tposition: absolute;\n\tleft: 0;\n\tbottom: 0;\n\ttransform-origin: bottom left;\n\tpointer-events: none;\n}\n#fboh-info{\n\tdisplay: none;\n\tposition: absolute;\n\tleft: 160px;\n\ttop: 10px;\n\tpointer-events: none;\n}\n.fboh-card{\n\tdisplay: block;\n\twhite-space: nowrap;\n\tcolor: black;\n\tpadding: 10px;\n\tbackground-color: white;\n\tborder: 1px solid black;\n}\n';
+	var layerCSS = '\n#fboh-fbos-list{\n\tall: unset;\n\tposition: fixed;\n\tleft: 0;\n\tbottom: 0;\n\tz-index: 1000000;\n}\n#fboh-fbos-list, #fboh-fbos-list *, #fboh-hotspot, #fboh-label, #fboh-info{\n\tbox-sizing: border-box;\n\tfont-family: \'Roboto Mono\', \'courier new\', courier, monospace;\n\tfont-size: 11px;\n\tline-height: 1.4em;\n}\n#fboh-fbos-list li{\n\tcursor: pointer;\n\tcolor: white;\n\twidth: 100%;\n\tpadding: 4px 10px;\n\tborder-top: 1px solid #888;\n\tborder-bottom: 1px solid black;\n\tbackground-color: #000;\n\ttext-align: center;\n\ttext-shadow: 0 -1px black;\n}\n#fboh-fbos-list li:hover{\n\tbackground-color: rgba( 158, 253, 56, .5 );\n}\n#fboh-fbos-list li.active{\n\tbackground-color: rgba( 158, 253, 56, .5 );\n\tcolor: white;\n\ttext-shadow: 0 1px black;\n}\n#fboh-hotspot{\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tbackground-color: rgba( 158, 253, 56,.5);\n\tpointer-events: none;\n}\n#fboh-label{\n\tposition: absolute;\n\tleft: 0;\n\tbottom: 0;\n\ttransform-origin: bottom left;\n\tpointer-events: none;\n}\n#fboh-info{\n\tdisplay: none;\n\tposition: absolute;\n\tleft: 160px;\n\ttop: 10px;\n\tpointer-events: none;\n}\n.fboh-card{\n\tdisplay: block;\n\twhite-space: nowrap;\n\tcolor: black;\n\tpadding: 10px;\n\tbackground-color: white;\n\tborder: 1px solid black;\n}\n';
 
 	var formats = {};
 	formats[THREE.AlphaFormat] = 'THREE.AlphaFormat';
@@ -215,7 +215,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					fbo.height = fbo.image.height;
 				}
 
-				var width = 600;
+				var width = window.innerWidth > 834 ? window.innerWidth / 4 : window.innerWidth * 0.8;
 				var height = fbo.height * width / fbo.width;
 
 				var material = new THREE.MeshBasicMaterial({ map: fbo, side: THREE.DoubleSide });
@@ -416,7 +416,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 				var type = types[fbo.texture ? fbo.texture.type : fbo.type];
 				if (type === null) {
-					console.warning(fbo.texture ? fbo.texture.type : fbo.type + ' not supported');
+					console.log(fbo.texture ? fbo.texture.type : fbo.type + ' not supported');
 					return;
 				}
 
